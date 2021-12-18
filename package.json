@@ -13,11 +13,17 @@
     "ethereum-waffle": "^3.4.0",
     "ethers": "^5.5.2",
     "hardhat": "^2.8.0",
+    "hardhat-gas-reporter": "^1.0.6",
     "html-webpack-plugin": "^5.5.0",
     "ts-loader": "^9.2.6",
     "ts-node": "^10.4.0",
     "webpack": "^5.65.0",
     "webpack-cli": "^4.9.1"
+  },
+  "scripts": {
+    "test": "npx hardhat test",
+    "webpack": "npx webpack",
+    "hardhatServer": "npx hardhat node"
   },
   "dependencies": {
     "@types/chai": "^4.3.0",

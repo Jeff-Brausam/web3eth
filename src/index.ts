@@ -1,4 +1,5 @@
 import { ethers } from "ethers";
+import Counter from "../artifacts/contracts/Counter.sol/Counter.json";
 
 const getMetamask = () => {
   //@ts-ignore
@@ -37,11 +38,27 @@ async function getContract() {
 
   const contract = new ethers.Contract(
     address,
-    ["function hello() public pure returns(string memory)"], // abi
-    provider
+    Counter.abi,
+    provider.getSigner()
   );
+  const el = document.createElement("div");
+  const setCounter = async (count?) => {
+    el.innerHTML = count || (await contract.getCounter());
+  };
+  setCounter();
 
-  document.body.innerHTML = await contract.hello();
+  const button = document.createElement("button");
+  button.innerText = "increment";
+  button.onclick = async () => {
+    await contract.count();
+  };
+
+  contract.on(contract.filters.CounterInc(), (count) => {
+    setCounter();
+  });
+
+  document.body.appendChild(el);
+  document.body.appendChild(button);
 }
 
 getContract();
